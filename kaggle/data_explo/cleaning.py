@@ -3,6 +3,8 @@ import numpy as np
 def clean_categorical(df):
     cat_cols = df.select_dtypes(include="object").columns
 
+#Add more filtering for unforseen problems
+#Create coulmn temporality
     for col in cat_cols:
         df[col] = df[col].astype(str).str.lower().str.strip()
         df[col] = df[col].replace("nan", np.nan)

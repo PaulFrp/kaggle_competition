@@ -5,6 +5,7 @@ from knn_imputation import knn_impute_numeric
 from cleaning import clean_categorical
 from one_hot import cat_encoding
 from minmax import minMax
+from seasonality_features import add_seasonality_features
 
 
 df = pd.read_csv('../train_dataset_M1_with_id.csv')
@@ -15,6 +16,8 @@ df = clean_categorical(df)
 #Verify categorical was well cleaned
 for col in ["Time_of_Day", "Payment_Method", "Referral_Source"]:
     print(f"Unique values for {col}: {df[col].dropna().unique()}")
+
+df = add_seasonality_features(df)
 
 #Encode categorical variable using one hot encoding 
 df = cat_encoding(df)
@@ -58,3 +61,7 @@ df_imputed.to_csv("df_imputed.csv")
 #Return the df after minmax normalisation
 clean_df = minMax(df_imputed)
 print(clean_df.head())
+
+#Add dimensionality reduction
+
+
