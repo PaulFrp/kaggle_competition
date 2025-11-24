@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data (do NOT track big/raw data)
+data/raw/*
+data/processed/*
+!data/raw/README.md
+!data/processed/README.md
+
+# OS / IDE junk
+.DS_Store
+data/.DS_Store
+.vscode/
+.idea/
