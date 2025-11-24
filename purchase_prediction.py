@@ -14,7 +14,7 @@ TEST_FILE = '/Users/paolacassinelli/Desktop/Foundation of Machine Learning/dsba-
 TARGET_AD_SPEND = 200.0  # Constraint: Max daily spend in EUR
 AD_COST_PER_SESSION = 0.10 # Constraint: Cost per ad
 MAX_TARGET_SESSIONS = int(TARGET_AD_SPEND / AD_COST_PER_SESSION) # 2000 sessions
-N_CLUSTERS = 4 # Use the K found in persona_creation.py
+N_CLUSTERS = 3 # Use the K found in persona_creation.py
 
 # --- 1. DATA PREPARATION (Replicating data_cleaning.py logic) ---
 
