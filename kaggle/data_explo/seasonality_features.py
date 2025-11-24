@@ -39,7 +39,6 @@ def add_seasonality_features(df: pd.DataFrame) -> pd.DataFrame:
         df.drop(columns=['time_numeric'], inplace=True)
     
     # --- 3. Encode campaign period ---
-    # --- 3. Encode campaign period ---
     if 'Campaign_Period' in df.columns:
         # Convert strings "true"/"false" to 1/0
         df['campaign_effect'] = df['Campaign_Period'].map({'true': 1, 'false': 0})
