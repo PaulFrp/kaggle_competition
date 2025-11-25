@@ -1,0 +1,7 @@
+*.npy
+*.pkl
+*.csv
+*.keras
+__pycache__/
+*.zip
+*.parquet
