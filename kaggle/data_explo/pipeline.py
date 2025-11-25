@@ -8,7 +8,7 @@ from minmax import minMax
 from seasonality_features import add_seasonality_features
 
 
-df = pd.read_csv('../test_dataset_M1_with_id.csv')
+df = pd.read_csv('../train_dataset_M1_with_id.csv')
 
 #Clean the data (I only clean the 3 columns maybe need to expand to the rest)
 df = clean_categorical(df)
@@ -31,7 +31,7 @@ num_cols = df.select_dtypes(include=[np.number]).columns.drop("id").tolist()
 clean_df = minMax(df_imputed)
 print(clean_df.head())
 
-df_imputed.to_csv("df_imputed_test.csv")
+df_imputed.to_csv("df_imputed.csv")
 #Add dimensionality reduction
 
 

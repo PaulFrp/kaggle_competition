@@ -3,8 +3,6 @@ import numpy as np
 def clean_categorical(df):
     cat_cols = df.select_dtypes(include="object").columns
 
-#Add more filtering for unforseen problems
-#Create coulmn temporality
     for col in cat_cols:
         df[col] = df[col].astype(str).str.lower().str.strip()
         df[col] = df[col].replace("nan", np.nan)
@@ -12,6 +10,9 @@ def clean_categorical(df):
 
         if col_lower == "time_of_day":
             df[col] = df[col].replace({
+                r'^m.*':'morning',
+                r'^a.*':'afternoon',
+                r'^e.*':'evening',
                 r'^m[0o].*rning$': 'morning',
                 r'^aftern?[0o].*n$': 'afternoon',
                 r'^even.*g$': 'evening',
