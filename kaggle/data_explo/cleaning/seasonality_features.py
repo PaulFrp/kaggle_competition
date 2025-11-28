@@ -5,25 +5,6 @@ import numpy as np
 import pandas as pd
 
 def add_seasonality_features(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Adds seasonality and temporal features to the dataframe.
-    
-    Features added:
-    - day_sin, day_cos: cyclic encoding of the 'Day' column (weekly cycle)
-    - time_sin, time_cos: cyclic encoding of 'Time_of_Day' (morning/afternoon/evening)
-    - campaign_effect: numeric encoding of 'Campaign_Period' (0/1)
-    - seasonality_score: combination of day, time, and campaign effects
-
-    Parameters:
-    ----------
-    df : pd.DataFrame
-        Input dataframe with columns: 'Day', 'Time_of_Day', 'Campaign_Period'
-
-    Returns:
-    -------
-    pd.DataFrame
-        DataFrame with new seasonality features added
-    """
     
     # --- 1. Encode weekly cyclicality for 'Day' ---
     if 'Day' in df.columns:
