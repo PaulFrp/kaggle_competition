@@ -64,4 +64,4 @@ for k, v in report.items():
     print(f"{k}: {v}")
 
 # Save the top 2000 users
-top_users.to_csv("top_2000_users.csv", index=False)
+top_users.to_csv("./outputstop_2000_users.csv", index=False)
