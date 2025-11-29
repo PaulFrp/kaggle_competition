@@ -1,11 +1,10 @@
 import numpy as np
 import pandas as pd
-import time
 import warnings
 import optuna
 
 from sklearn.model_selection import TimeSeriesSplit, cross_val_score
-from sklearn.metrics import f1_score, roc_auc_score, make_scorer
+from sklearn.metrics import f1_score, make_scorer
 from xgboost import XGBClassifier
 
 warnings.filterwarnings("ignore")
@@ -65,7 +64,7 @@ def optimize_threshold(y_true, y_proba, start=0.30, stop=0.70, step=0.01):
     return best_thresh, best_f1
 
 
-def xgb_optuna_search(X, y, tscv, scale_pos_weight, n_trials=50, save_path="xgb_optuna_results.csv"):
+def xgb_optuna_search(X, y, tscv, scale_pos_weight, n_trials=50, save_path="./outputs/xgb_optuna_results.csv"):
     def objective(trial):
         params = {
             "n_estimators": trial.suggest_int("n_estimators", 150, 450),
@@ -91,7 +90,7 @@ def xgb_optuna_search(X, y, tscv, scale_pos_weight, n_trials=50, save_path="xgb_
     study = optuna.create_study(direction="maximize")
     study.optimize(objective, n_trials=n_trials, show_progress_bar=True)
     
-    # Save full trial history
+    # Save trial history
     df_results = pd.DataFrame([t.params | {"value": t.value} for t in study.trials])
     df_results.to_csv(save_path, index=False)
     
@@ -100,7 +99,7 @@ def xgb_optuna_search(X, y, tscv, scale_pos_weight, n_trials=50, save_path="xgb_
     return best_params, best_value, study
 
 
-def get_feature_importance(model, X, save_path="feature_importance.csv"):
+def get_feature_importance(model, X, save_path="./outputs/feature_importance.csv"):
     importances = model.feature_importances_
     feature_importance = pd.DataFrame({
         "feature": X.columns,
@@ -110,7 +109,7 @@ def get_feature_importance(model, X, save_path="feature_importance.csv"):
     return feature_importance
 
 
-def feature_subset_testing(X, y, feature_importance, tscv, scale_pos_weight, top_n_options=[20,30,40,50,60,80,100], save_path="feature_selection_results.csv"):
+def feature_subset_testing(X, y, feature_importance, tscv, scale_pos_weight, top_n_options=[20,30,40,50,60,80,100], save_path="./outputs/feature_selection_results.csv"):
     results = []
     for n in top_n_options + [len(feature_importance)]:
         top_feats = feature_importance.head(n)["feature"].tolist()
@@ -125,7 +124,7 @@ def feature_subset_testing(X, y, feature_importance, tscv, scale_pos_weight, top
 
 
 def train_final_model(X_train, y_train, X_test, best_features, best_params, scale_pos_weight,
-                      save_pred_csv="submission_final.csv", save_pred_with_prob_csv="submission_final_with_probabilities.csv"):
+                      save_pred_csv="submission_final.csv", save_pred_with_prob_csv="./outputs/submission_final_with_probabilities.csv"):
     X_train_sel = X_train[best_features]
     X_test_sel = X_test[best_features]
     
