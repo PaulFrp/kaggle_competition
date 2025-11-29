@@ -19,6 +19,14 @@ def load_and_process_data(train_path, test_path):
         d['price_discount_ratio'] = d['Price'] / (1 + d['Discount'])
         d['engagement_x_socio'] = d['Engagement_Score'] * d['Socioeconomic_Status_Score']
         d['email_x_engagement'] = d['Email_Interaction'] * d['Engagement_Score']
+        d['Effective_Price'] = d['Price'] * (1 - d['Discount'])
+        d['Email_Campaign_Interaction'] = d['Email_Interaction'] * d['Campaign_Period_true']
+        d['High_Engagement'] = (d['Engagement_Score'] > 0.5).astype(float)
+        d['Price_Discount_Interaction'] = d['Price'] * d['Discount']
+        d['Cart_Value_Proxy'] = d['Items_In_Cart'] * d['Price']
+        d['Engagement_Per_Review'] = d['Engagement_Score'] / (d['Reviews_Read'] + 0.01)
+        d['Mobile_Evening'] = d['Device_Type_mobile'] * d['Time_of_Day_evening']
+        d['Desktop_Morning'] = d['Device_Type_desktop'] * d['Time_of_Day_morning']
 
     return df, df_test
 

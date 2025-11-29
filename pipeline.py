@@ -45,25 +45,21 @@ final_model, test_pred, test_proba, thresh, f1 = train_final_model(
 print("Final F1:", f1)
 print("Optimal threshold:", thresh)
 
-# ---------------------------
-#      MARKETING REPORT
-# ---------------------------
-
-# Wrap the NumPy array into a DataFrame with IDs
+# Wrap predictions into a DataFrame
 test_predictions_df = pd.DataFrame({
-    "id": test_clean["id"],       # ensure test_clean has the 'id' column
-    "purchase_proba": test_proba  # NumPy array from the model
+    "id": test_clean["id"],
+    "purchase_proba": test_proba
 })
 
 # Generate ROI / marketing report
 report, top_users = generate_marketing_report(
-    test_df=test_clean,       # your cleaned test dataframe
+    test_df=test_clean,
     pred_df=test_predictions_df,
     top_n=2000
 )
 
-# Print the marketing report
-print("=== MARKETING REPORT ===")
+
+print("MARKETING REPORT")
 for k, v in report.items():
     print(f"{k}: {v}")
 
